@@ -2,16 +2,19 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.1'
 gem 'bootstrap-sass'
+gem 'bcrypt-ruby'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg', group: :production
 
-group :development do
+group :development, :test do
   gem 'rspec-rails'
   gem 'sqlite3'
 end
+
+gem 'annotate', group: :development
 
 group :test do
   gem 'capybara'
