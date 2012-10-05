@@ -18,6 +18,7 @@ gem 'annotate', group: :development
 
 group :test do
   gem 'capybara'
+  gem 'factory_girl_rails'
 end
 
 # Gems used only for assets and not required
