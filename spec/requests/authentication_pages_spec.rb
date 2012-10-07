@@ -65,6 +65,27 @@ describe "Authentication" do
           it { should have_selector('title', text: 'Sign in') }
         end
       end
+
+      describe "no links in page" do
+        before { visit root_path }
+        it { should_not have_link('Profile') }
+        it { should_not have_link('Settings') }
+      end
+    end
+
+    describe "for signed_in_user" do
+      before { sign_in user }
+
+      describe 'redirect to root when visit sign in page' do
+        before { visit signup_path }
+        it { should_not have_selector('title', text: full_title('Sign up')) }
+        it { should have_selector('title', text: full_title('')) }
+      end
+
+      describe 'redirect to root when visit create user' do
+        before { post users_path }
+        specify { response.should redirect_to(root_path) }
+      end
     end
 
     describe "as wrong user" do
