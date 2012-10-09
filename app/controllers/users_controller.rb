@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :signed_in_user, only: [:edit, :update, :index, :destroy]
+  before_filter :signed_in_user, only: [:edit, :update, :index, :destroy, :followers, :following]
   before_filter :correct_user, only: [:edit, :update]
   before_filter :admin_user, only: :destroy
   before_filter :non_signed_in_user, only: [:new, :create]
@@ -46,6 +46,22 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
 
+  def following
+    @title = "Followers"
+    @user = User.find(params[:id])
+    @users = @user.followed_users.paginate(page: params[:page])
+
+    render 'show_follow'
+  end
+
+  def followers
+    @title = "Following"
+    @user = User.find(params[:id])
+    @users = @user.followers.paginate(page: params[:page])
+
+    render 'show_follow'
+  end
+
   private
 
   def correct_user
@@ -62,4 +78,5 @@ class UsersController < ApplicationController
       redirect_to root_path
     end
   end
+
 end
